@@ -1,36 +1,24 @@
 pipeline {
-    agent any
-    
+	agent none  
     stages {
-    
-    
-        stage('Checkout'){
-            steps{
-                sh "echo this is checkout stage"
-            }
+        
+        stage('Docker Build') {
+          agent any
+          steps {
+              sh 'docker build -t josiokoko/flaskapp:${env.BUILD_ID} .'
+          }
         }
         
+        stage('Docker Push') {
+          agent any
+          environment {
+              DOCKER_HUB_CREDS = credentials('joseph-dockerhub-creds')
+          }
+          steps {
+              sh "docker login -u $DOCKER_HUB_CREDS_USR -p $DOCKER_HUB_CREDS_PSW"
+              sh 'docker push josiokoko/flaskapp:${env.BUILD_ID}'
+          }
+        } 
         
-        stage('BuildStage') {
-            steps{
-                sh "echo build docker image"
-                sh "echo push docker to dockerHub"
-            }
-        }
-        
-        
-        stage('Provision') {
-            steps {
-                sh "echo provision infrastructure"
-            }
-        }
-        
-        
-        stage('Deploy') {
-            steps{
-                sh "echo provision infrastructure"
-            }
-         }
-         
     }
 }
