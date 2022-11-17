@@ -43,7 +43,7 @@ pipeline {
 
         stage('Terraform Init'){
             steps {
-                sh 'terraform init'
+                 sh label: '', script: 'terraform init'
             }
         } 
         
