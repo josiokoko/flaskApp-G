@@ -39,10 +39,10 @@ pipeline {
 
         stage('Terraform Init'){
             agent {
-                docker { image 'hashicorp/terraform:latest'}
+                docker { image 'hashicorp/terraform:light'}
             }
             steps {
-                sh 'terraform version'
+                sh 'version'
             }
         } 
         
