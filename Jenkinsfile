@@ -31,7 +31,7 @@ pipeline {
           }
           steps {
 	      sh "docker tag josiokoko/flaskapp:001 josiokoko/flaskapp"
-              sh "docker login -u $DOCKER_HUB_CREDS_USR -p $DOCKER_HUB_CREDS_PSW"
+              sh "docker login -u $DOCKER_HUB_CREDS_USR -p %DOCKER_HUB_CREDS_PSW%"
 	      // sh 'echo $DOCKER_HUB_CREDS_PSW | docker login -u $DOCKER_HUB_CREDS_USR --password-stdin'
               sh 'docker push josiokoko/flaskapp'
           }
