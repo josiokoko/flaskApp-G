@@ -42,8 +42,7 @@ pipeline {
                 docker { image 'hashicorp/terraform:latest'}
             }
             steps {
-                sh 'cd deploy'
-                sh 'terraform init'
+                sh 'terraform version'
             }
         } 
         
