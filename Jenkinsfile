@@ -41,7 +41,7 @@ pipeline {
           }
         }
 
-        stage ('Infra Provisioning'){
+        stage ('Infrastructure Provisioning'){
             parallel {
                 stage('Terraform Init'){
                     steps {
