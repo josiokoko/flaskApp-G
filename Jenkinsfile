@@ -43,6 +43,7 @@ pipeline {
 
         stage('Terraform Init'){
             steps {
+                sh 'cd deploy'
                 sh 'terraform init'
             }
         } 
