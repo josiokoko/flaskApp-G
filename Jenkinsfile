@@ -5,6 +5,7 @@ pipeline {
     environment {
         AWS_ACCESS_KEY_ID     = credentials('jenkins-aws-secret-key-id')
         AWS_SECRET_ACCESS_KEY = credentials('jenkins-aws-secret-access-key')
+        TERRAFORM_CMD = 'docker run --network host " -w /app -v ${HOME}/.aws:/root/.aws -v ${HOME}/.ssh:/root/.ssh -v `pwd`:/app hashicorp/terraform:light'
     }
 	
     stages {
@@ -42,7 +43,7 @@ pipeline {
                 docker { image 'hashicorp/terraform:light'}
             }
             steps {
-                sh 'version'
+                sh '${TERRAFORM_CMD} init'
             }
         } 
         
