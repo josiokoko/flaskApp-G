@@ -51,7 +51,7 @@ pipeline {
                 
                 stage('Terraform Plan'){
                     steps {
-                        sh label: '', script: 'terraform plan -auto-approve'
+                        sh label: '', script: 'terraform plan'
                     }
                 } 
             }
