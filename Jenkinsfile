@@ -8,6 +8,13 @@ pipeline {
     // }
 	
     stages {
+
+        stage('Checkout') {
+          agent any
+          steps {
+              checkout scm
+          }
+        }
         
         stage('Docker Build') {
           agent any
