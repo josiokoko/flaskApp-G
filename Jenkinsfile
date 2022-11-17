@@ -41,18 +41,22 @@ pipeline {
           }
         }
 
-        parallel {
-            stage('Terraform Init'){
-                steps {
-                    sh label: '', script: 'terraform init'
-                }
-            } 
-            
-            stage('Terraform Plan'){
-                steps {
-                    sh label: '', script: 'terraform plan -auto-approve'
-                }
-            } 
+        stage ('Infra Provisioning'){
+            parallel {
+                stage('Terraform Init'){
+                    steps {
+                        sh label: '', script: 'terraform init'
+                    }
+                } 
+                
+                stage('Terraform Plan'){
+                    steps {
+                        sh label: '', script: 'terraform plan -auto-approve'
+                    }
+                } 
+            }
         }
+
+
     }
 }
