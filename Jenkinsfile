@@ -55,7 +55,7 @@ pipeline {
                 }
                 stage ('Docker Push Alternative') {
                     environment {
-                        registryCredential = "joseph-dockerhub-creds"
+                        registryCredential = 'joseph-dockerhub-creds'
                     }
                     steps {
                         script {
