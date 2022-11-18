@@ -41,14 +41,12 @@ pipeline {
           }
         }
 
-        stage ('Yet Another Sample Build') {
-            parallel {
-                stage ('Another Build and Push') {
-                    steps {
-                        withDockerRegistry(credentialsId: 'joseph-dockerhub-creds') {
-                            def dockerImage = docker.build('josiokoko/another-flask:0.${BUILD_ID}')
-                            dockerImage.push()
-                        }
+        stage ('Another Build and Push') {
+            steps {
+                script {
+                    withDockerRegistry(credentialsId: 'joseph-dockerhub-creds') {
+                        def dockerImage = docker.build('josiokoko/another-flask:0.${BUILD_ID}')
+                        dockerImage.push()
                     }
                 }
             }
