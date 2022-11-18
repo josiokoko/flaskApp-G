@@ -40,18 +40,6 @@ pipeline {
             sh 'docker push josiokoko/flaskapp:0.${BUILD_NUMBER}'
           }
         }
-
-        stage ('Another Build and Push') {
-            steps {
-                script {
-                    withDockerRegistry(credentialsId: 'joseph-dockerhub-creds') {
-                        def dockerImage = docker.build('josiokoko/another-flask:0.${BUILD_ID}')
-                        dockerImage.push()
-                    }
-                }
-            }
-        }
-
         
         stage ('Infrastructure Provisioning'){
             parallel {
