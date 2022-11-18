@@ -5,6 +5,8 @@ pipeline {
     environment {
         AWS_ACCESS_KEY_ID     = credentials('jenkins-aws-secret-key-id')
         AWS_SECRET_ACCESS_KEY = credentials('jenkins-aws-secret-access-key')
+        dockerImageName='josiokoko/flaskapp_alternate'
+        dockerImage = ""
     }
 
     tools {
@@ -26,6 +28,14 @@ pipeline {
               // sh 'docker build -t josiokoko/flaskapp:${env.BUILD_ID} .'
               sh 'docker build -t josiokoko/flaskapp:0.${BUILD_NUMBER} .'
           }
+        }
+
+        stage('Docker Build Alternate') {
+            steps {
+                script {
+                    dockerImage = docker.build dockerImageName
+                }
+            }
         }
         
         stage('Docker Push') {
