@@ -29,14 +29,6 @@ pipeline {
               sh 'docker build -t josiokoko/flaskapp:0.${BUILD_NUMBER} .'
           }
         }
-
-        stage('Docker Build Alternate') {
-            steps {
-                script {
-                    dockerImage = docker.build dockerImageName
-                }
-            }
-        }
         
         stage('Docker Push') {
           agent any
@@ -50,6 +42,32 @@ pipeline {
             sh 'docker push josiokoko/flaskapp:0.${BUILD_NUMBER}'
           }
         }
+
+        // Running Scripted Pipeline in Declarative Pipeline with script command
+        stage ('2nd Build Example ') {
+            parallel {
+                stage('Docker Build Alternate') {
+                    steps {
+                        script {
+                            dockerImage = docker.build dockerImageName
+                        }
+                    }
+                }
+                stage ('Docker Push Alternative') {
+                    environment {
+                        registryCredential = "joseph-dockerhub-creds"
+                    }
+                    steps {
+                        script {
+                            docker.withRegistry('https://registry.hub.docker.com', registryCredential) {
+                                dockerImage.push("0.${BUILD_NUMBER}")
+                            }
+                        }
+                    }
+                }
+            }
+        }
+       
 
         stage ('Infrastructure Provisioning'){
             parallel {
