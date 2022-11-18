@@ -59,7 +59,7 @@ pipeline {
                     }
                     steps {
                         script {
-                            docker.withRegistry('https://registry.hub.docker.com', registryCredential) {
+                            docker.withRegistry('https://registry.hub.docker.com', 'joseph-dockerhub-creds') {
                                 dockerImage.push("0.${BUILD_NUMBER}")
                             }
                         }
