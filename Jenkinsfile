@@ -53,19 +53,21 @@ pipeline {
                         }
                     }
                 }
-                stage ('Docker Push Alternative') {
-                    steps {
-                        script {
-                            dockerImage.push("0.${BUILD_NUMBER}")
-                        }
-                    }
-                }
+                // stage ('Docker Push Alternative') {
+                //     steps {
+                //         script {
+                //             dockerImage.push("0.${BUILD_NUMBER}")
+                //         }
+                //     }
+                // }
 
                 stage ('Yet Another Approach') {
                     steps {
                         script {
-                            def customImage = docker.build("josiokoko/my-flask-app:${BUILD_ID}")
-                            customImage.push()
+                            docker.withRegistry('https://registry.hub.docker.com', 'joseph-dockerhub-creds') {
+                                def customImage = docker.build("josiokoko/my-flask-app:${BUILD_ID}")
+                                customImage.push()
+                            }
                         }
                     }
                 }
