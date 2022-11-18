@@ -4,6 +4,6 @@ resource "aws_instance" "web" {
   instance_type = "t2.micro"
 
   tags = {
-    Name = "joseph-example-${terraform.workspacer}-${count.index}"
+    Name = "joseph-example-${terraform.workspace}-${count.index}"
   }
 }
