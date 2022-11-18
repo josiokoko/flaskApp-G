@@ -55,11 +55,11 @@ pipeline {
                 }
                 stage ('Docker Push Alternative') {
                     environment {
-                        registryCredential = 'joseph-dockerhub-creds'
+                        DOCKER_HUB_CREDS = credentials('joseph-dockerhub-creds')
                     }
                     steps {
                         script {
-                            docker.withRegistry('https://registry.hub.docker.com', 'joseph-dockerhub-creds') {
+                            docker.withRegistry('https://registry.hub.docker.com', $DOCKER_HUB_CREDS) {
                                 dockerImage.push("0.${BUILD_NUMBER}")
                             }
                         }
