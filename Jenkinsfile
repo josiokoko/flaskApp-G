@@ -41,31 +41,29 @@ pipeline {
           }
         }
         
-        stage ('Infrastructure Provisioning'){
-            parallel {
-                stage('Terraform Init'){
-                    steps {
-                        sh label: '', script: 'terraform init'
-                    }
-                } 
+        stage('Terraform Init'){
+            steps {
+                sh label: '', script: 'terraform init'
+            }
+        } 
                 
-                // stage('Terraform Plan'){
-                //     steps {
-                //         sh label: '', script: 'terraform plan'
-                //     }
-                // } 
+        stage('Terraform Plan'){
+            steps {
+                sh label: '', script: 'terraform plan'
+            }
+        } 
 
-                stage('Terraform Apply'){
-                    steps {
-                        sh label: '', script: 'terraform apply -auto-approve'
-                    }
-                }
 
-                stage('Terraform Destroy'){
-                    steps {
-                        sh label: '', script: 'terraform destroy -auto-approve'
-                    }
-                }
+        stage('Terraform Apply'){
+            steps {
+                sh label: '', script: 'terraform apply -auto-approve'
+            }
+        }
+
+
+        stage('Terraform Destroy'){
+            steps {
+                sh label: '', script: 'terraform destroy -auto-approve'
             }
         }
 
