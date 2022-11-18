@@ -30,18 +30,18 @@ pipeline {
           }
         }
         
-        stage('Docker Push') {
-          agent any
-          environment {
-              DOCKER_HUB_CREDS = credentials('joseph-dockerhub-creds')
-          }
-          steps {
-	        sh "docker tag josiokoko/flaskapp:0.${BUILD_NUMBER} josiokoko/flaskapp:0.${BUILD_NUMBER}"
-            // sh 'docker login -u $DOCKER_HUB_CREDS_USR -p $DOCKER_HUB_CREDS_PSW'
-	        sh 'echo $DOCKER_HUB_CREDS_PSW | docker login -u $DOCKER_HUB_CREDS_USR --password-stdin'
-            sh 'docker push josiokoko/flaskapp:0.${BUILD_NUMBER}'
-          }
-        }
+        // stage('Docker Push') {
+        //   agent any
+        //   environment {
+        //       DOCKER_HUB_CREDS = credentials('joseph-dockerhub-creds')
+        //   }
+        //   steps {
+	    //     sh "docker tag josiokoko/flaskapp:0.${BUILD_NUMBER} josiokoko/flaskapp:0.${BUILD_NUMBER}"
+        //     // sh 'docker login -u $DOCKER_HUB_CREDS_USR -p $DOCKER_HUB_CREDS_PSW'
+	    //     sh 'echo $DOCKER_HUB_CREDS_PSW | docker login -u $DOCKER_HUB_CREDS_USR --password-stdin'
+        //     sh 'docker push josiokoko/flaskapp:0.${BUILD_NUMBER}'
+        //   }
+        // }
 
         // Running Scripted Pipeline in Declarative Pipeline with script command
         stage ('2nd Build Example ') {
