@@ -49,22 +49,20 @@ pipeline {
                     }
                 } 
                 
-                stage('Terraform Plan'){
-                    steps {
-                        sh label: '', script: 'terraform plan'
-                    }
-                } 
+                // stage('Terraform Plan'){
+                //     steps {
+                //         sh label: '', script: 'terraform plan'
+                //     }
+                // } 
 
                 stage('Terraform Apply'){
                     steps {
-                        sh label: '', script: 'terraform init'
                         sh label: '', script: 'terraform apply -auto-approve'
                     }
                 }
 
                 stage('Terraform Destroy'){
                     steps {
-                        sh label: '', script: 'terraform init'
                         sh label: '', script: 'terraform destroy -auto-approve'
                     }
                 }
